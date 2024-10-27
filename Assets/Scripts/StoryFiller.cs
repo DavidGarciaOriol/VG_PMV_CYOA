@@ -116,6 +116,7 @@ public class StoryFiller
         nodo7.titulo = "Cataratas mortales";
         nodo7.historia = "Las cataratas son un espectáculo impresionante y aterrador. El agua cae con fuerza, creando un estruendo ensordecedor. Te sientes pequeño y vulnerable ante la magnitud de la naturaleza, pero algo te impulsa a acercarte. Tienes que decidir si cruzar el peligroso paso de las cataratas o retirarte antes de que sea demasiado tarde.";
         nodo7.respuestas = new string[] { "Cruzar las cataratas." };
+        nodo7.respuestasFinales = new string[] { "Al intentar cruzar las traicioneras cataratas, el jugador pierde pie y es arrastrado por la fuerza del agua. Las rocas afiladas lo golpean mientras lucha por mantenerse a flote. Sin embargo, la corriente es implacable, y pronto desaparece en las profundidades, dejando solo un eco de su último grito." };
         nodo7.siguienteNodo = null; ;
         nodo7.esFinal = true;
 
@@ -132,6 +133,11 @@ public class StoryFiller
         nodo9.titulo = "Trampa mortal";
         nodo9.historia = "Has caído en una trampa mortal, un mecanismo antiguo que se ha activado. El tiempo es crucial mientras buscas una forma de escapar. El aire se vuelve pesado y la presión aumenta, lo que te lleva a actuar rápidamente. Tienes que decidir si luchar para desactivar la trampa o intentar escapar antes de que sea demasiado tarde.";
         nodo9.respuestas = new string[] { "Desactivar la trampa.", "Intentar escapar." };
+        nodo9.respuestasFinales = new string[] 
+            {
+                "Tus intentos por desactivar la trampa han decidido tu destino, has acelerado el mecanísmo de la trampo... los muros comienzan a cerrarse mucho más rápidamente, tu muerte es inminente !!!",
+                "Los muros comienzan a cerrarse lentamente, mientras el suelo cede bajo sus pies. A pesar de sus intentos por escapar, la trampa cumple su cometido. La oscuridad lo envuelve para siempre, y su aventura termina en el silencio de la tumba."
+            };
         nodo9.siguienteNodo = null;
         nodo9.esFinal = true;
 
@@ -140,6 +146,11 @@ public class StoryFiller
         nodo10.titulo = "Embarcadero";
         nodo10.historia = "Te encuentras en un embarcadero oculto, con un bote pequeño meciéndose suavemente en las aguas oscuras. La atmósfera está impregnada de un aire de aventura y peligro, y una decisión crucial debe tomarse. ¿Deberías embarcarte en el bote hacia la libertad o quedarte y descubrir más sobre este lugar misterioso?";
         nodo10.respuestas = new string[] { "Tomar el bote.", "Quedarse en el embarcadero." };
+        nodo10.respuestasFinales = new string[] 
+            {
+                 "El jugador encuentra un viejo bote en el embarcadero secreto, su única oportunidad de huir. Con determinación, empuja el bote al agua y rema hacia la luz al final de la cueva. El viento fresco y la promesa de nuevas tierras llenan sus pulmones. Ha escapado, libre para continuar su travesía por el vasto mundo.",
+                 "El jugador, intrigado por las sombras que rodean el embarcadero, decide quedarse. Tras inspeccionar el área, descubre un cofre antiguo oculto bajo una pila de piedras. Dentro, relucen joyas y monedas de oro de un reino olvidado. Su búsqueda ha terminado, pero su vida cambiará para siempre con esta fortuna inesperada."
+            };
         nodo10.siguienteNodo = null;
         nodo10.esFinal = true;
 

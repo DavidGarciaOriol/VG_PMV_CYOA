@@ -4,9 +4,15 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using static GameManager;
 
 public class GameManager : MonoBehaviour
 {
+    public enum EstadosDeJuego
+    {
+        Jugando,
+        Pausado
+    }
 
     public class StoryNode
     {
@@ -24,11 +30,19 @@ public class GameManager : MonoBehaviour
     // Prefab de botones de acción.
     public GameObject botonPrefab;
 
-    // Referencia al exto de la historia - HUD.
+    // Referencia al texto de la historia - HUD.
     public GameObject textoHistoria;
 
     // Referencia al panel de botones - HUD.
     public GameObject panelBotones;
+
+    // Estados del juego actuales y previos.
+    public EstadosDeJuego estadoDelJuego;
+    public EstadosDeJuego estadoPrevioDeJuego;
+
+    // Referencia a la pantalla de pausa.
+    public GameObject pantallaDePausa;
+
 
     // Inicializa el juego.
 
@@ -76,7 +90,7 @@ public class GameManager : MonoBehaviour
 
         if (nodoActual.esFinal)
         {
-            textoHistoria.GetComponent<TMPro.TextMeshProUGUI>().text += "\n\nMUERTO";
+            textoHistoria.GetComponent<TMPro.TextMeshProUGUI>().text += "\n\n" + nodoActual.respuestasFinales[indice];
             AgregarBotonesSalirRestart();
         }
         else
@@ -108,7 +122,7 @@ public class GameManager : MonoBehaviour
 
         // BOTON RESTART
         GameObject botonRestart = Instantiate(botonPrefab, panelBotones.transform);
-        botonRestart.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Salir";
+        botonRestart.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Reiniciar";
 
         // Asignar manejadores de eventos de los botones.
         botonRestart.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => MenuManager.IniciarPartida());
@@ -131,4 +145,66 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    void Update()
+    {
+        // Se define el comportamiento de cada estado del juego.
+        switch (estadoDelJuego)
+        {
+            case EstadosDeJuego.Jugando:
+                ComprobarPausaReanudacion();
+                break;
+            case EstadosDeJuego.Pausado:
+                ComprobarPausaReanudacion();
+                break;
+            default:
+                Debug.LogWarning("NO EXISTE EL ESTADO DE JUEGO.");
+                break;
+        }
+    }
+
+    public void CambiarEstadoDeJuego(EstadosDeJuego nuevoEstado)
+    {
+        estadoDelJuego = nuevoEstado;
+    }
+
+    void ComprobarPausaReanudacion()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (estadoDelJuego == EstadosDeJuego.Pausado)
+            {
+                ReanudarJuego();
+            }
+            else
+            {
+                PausarJuego();
+            }
+        }
+    }
+
+    void PausarJuego()
+    {
+        if (estadoDelJuego != EstadosDeJuego.Pausado)
+        {
+            estadoPrevioDeJuego = estadoDelJuego;
+            CambiarEstadoDeJuego(EstadosDeJuego.Pausado);
+            pantallaDePausa.SetActive(true);
+
+            Debug.Log("Juego pausado.");
+        }
+    }
+
+    void ReanudarJuego()
+    {
+        if (estadoDelJuego == EstadosDeJuego.Pausado)
+        {
+            CambiarEstadoDeJuego(estadoPrevioDeJuego);
+            pantallaDePausa.SetActive(false);
+
+            Debug.Log("Juego reanudado.");
+        }
+
+    }
+
 }
