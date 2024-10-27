@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
         public string[] respuestas;
         public StoryNode[] siguienteNodo; // Debe tener la misma longitud que respuestas[].
         public string[] respuestasFinales; // Debe tener la misma longitud que respuestas[].
+
         public bool esFinal;
     }
 
@@ -42,6 +43,9 @@ public class GameManager : MonoBehaviour
 
     // Referencia a la pantalla de pausa.
     public GameObject pantallaDePausa;
+
+    // Referencia a la imagen del nodo.
+    public GameObject imagen;
 
 
     // Inicializa el juego.
