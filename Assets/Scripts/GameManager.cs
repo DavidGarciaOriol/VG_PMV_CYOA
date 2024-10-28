@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         public string[] respuestas;
         public StoryNode[] siguienteNodo; // Debe tener la misma longitud que respuestas[].
         public string[] respuestasFinales; // Debe tener la misma longitud que respuestas[].
-
+        public Sprite imagenNodo;
         public bool esFinal;
     }
 
@@ -60,6 +60,30 @@ public class GameManager : MonoBehaviour
     {
         // Escribir en el panel de la historia el texto del nodo actual.
         textoHistoria.GetComponent<TMPro.TextMeshProUGUI>().text = nodo.historia;
+
+        // Si el nodo tiene una imagen asignada, mostrarla. 
+        if (nodo.imagenNodo != null)
+        {
+            imagen.GetComponent<UnityEngine.UI.Image>().sprite = nodo.imagenNodo;
+            imagen.SetActive(true);
+
+            // Ajustar el tamaño de la imagen al contenedor
+            RectTransform imagenRect = imagen.GetComponent<RectTransform>();
+            imagenRect.sizeDelta = new Vector2(400, imagenRect.rect.height); // Ajusta el ancho y la altura deseada.
+
+            // Ajustar el texto para que no ocupe el espacio de la imagen
+            RectTransform textoRect = textoHistoria.GetComponent<RectTransform>();
+            textoRect.offsetMin = new Vector2(100, textoRect.offsetMin.y); // Desplazamos el texto
+        }
+        else
+        {
+            // Si no hay imagen, ocultar el contenedor de la imagen.
+            imagen.SetActive(false);
+
+            // Expandir el texto para que ocupe todo el espacio.
+            RectTransform textoRect = textoHistoria.GetComponent<RectTransform>();
+            textoRect.offsetMin = new Vector2(0, textoRect.offsetMin.y); // Sin margen para la imagen.
+        }
 
         // Eliminar botones ya existentes.
         BorrarBotones();
